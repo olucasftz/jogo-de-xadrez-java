@@ -16,7 +16,7 @@ public class UI {
 	}
 	
 	public static void exibirPeca(PecaDeXadrez peca) {
-		if(peca == null) {
+		if (peca == null) {
 			System.out.print("-");
 		}
 		else {

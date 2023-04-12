@@ -6,9 +6,9 @@ public class Tabuleiro {
 	private int colunas;
 	private Peca[][] pecas;
 	
-	public Tabuleiro(int linha, int coluna) {
-		this.linhas = linha;
-		this.colunas = coluna;
+	public Tabuleiro(int linhas, int colunas) {
+		this.linhas = linhas;
+		this.colunas = colunas;
 		pecas = new Peca[linhas][colunas];
 	}
 
@@ -34,5 +34,10 @@ public class Tabuleiro {
 	
 	public Peca peca(Posicao posicao) {
 		return pecas[posicao.getLinha()][posicao.getColuna()];
+	}
+	
+	public void posicaoDaPeca(Peca peca, Posicao posicao) {
+		pecas[posicao.getLinha()][posicao.getColuna()] = peca;
+		peca.posicao = posicao;
 	}
 }
