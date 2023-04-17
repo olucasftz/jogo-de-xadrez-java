@@ -25,6 +25,12 @@ public class PartidaDeXadrez {
 		return mat;
 	}
 	
+	public boolean[][] possiveisMovimentacoes(XadrezPosicao posicaoDeOrigem) {
+		Posicao posicao = posicaoDeOrigem.DaPosicao();
+		validarPosicaoDeOrigem(posicao);
+		return tabuleiro.peca(posicao).PossiveisMovimentacoes();
+	}
+	
 	public PecaDeXadrez executarJogadaDeXadrez(XadrezPosicao posicaoDeOrigem, XadrezPosicao posicaoDoDestino) {
 		Posicao origem = posicaoDeOrigem.DaPosicao();
 		Posicao destino = posicaoDoDestino.DaPosicao();
