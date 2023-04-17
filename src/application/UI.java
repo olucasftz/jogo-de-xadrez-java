@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import xadrezgeral.Cor;
+import xadrezgeral.PartidaDeXadrez;
 import xadrezgeral.PecaDeXadrez;
 import xadrezgeral.XadrezPosicao;
 
@@ -48,6 +49,13 @@ public class UI {
 		}
 	}
 	
+	public static void exibirPartida(PartidaDeXadrez partidaDeXadrez) {
+		exibirTabuleiro(partidaDeXadrez.obterPecas());
+		System.out.println();
+		System.out.println("Turno: " + partidaDeXadrez.getTurno());
+		System.out.println("Esperando jogador: " + partidaDeXadrez.getjogadorAtual());
+	}
+	
 	public static void exibirTabuleiro(PecaDeXadrez[][] pecas) {
 		for (int i = 0; i < pecas.length; i++) {
 			System.out.print((8 - i) + " ");
@@ -77,7 +85,7 @@ public class UI {
 		if (peca == null) {
 			System.out.print("-" + ANSI_RESET);
 		} else {
-			if (peca.getCor() == Cor.WHITE) {
+			if (peca.getCor() == Cor.BRANCO) {
                 System.out.print(ANSI_WHITE + peca + ANSI_RESET);
             }
             else {
