@@ -22,7 +22,7 @@ public class Torre extends PecaDeXadrez{
 		
 		Posicao p = new Posicao(0, 0);
 		
-		// Para cima
+		// Cima
 		p.setValores(posicao.getLinha() - 1, posicao.getColuna());
 		while(getTabuleiro().posicaoExistente(p) && !getTabuleiro().temUmaPeca(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
@@ -32,7 +32,7 @@ public class Torre extends PecaDeXadrez{
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
 		
-		// Para baixo
+		// Baixo
 	
 		p.setValores(posicao.getLinha() + 1, posicao.getColuna());
 		while(getTabuleiro().posicaoExistente(p) && !getTabuleiro().temUmaPeca(p)) {
@@ -43,7 +43,7 @@ public class Torre extends PecaDeXadrez{
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
 		
-		// Para esquerda
+		// Esquerda
 		
 		p.setValores(posicao.getLinha(), posicao.getColuna() - 1);
 		while(getTabuleiro().posicaoExistente(p) && !getTabuleiro().temUmaPeca(p)) {
@@ -54,7 +54,7 @@ public class Torre extends PecaDeXadrez{
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
 		
-		// Para direita
+		// Direita
 		
 		p.setValores(posicao.getLinha(), posicao.getColuna() + 1);
 		while(getTabuleiro().posicaoExistente(p) && !getTabuleiro().temUmaPeca(p)) {
