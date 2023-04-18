@@ -11,12 +11,6 @@ public class Rei extends PecaDeXadrez{
 		super(tabuleiro, cor);
 	}
 	
-	@Override 
-	public String toString() {
-		return "R";
-	}
-
-	
 	private boolean podeMover(Posicao posicao) {
 		PecaDeXadrez p = (PecaDeXadrez)getTabuleiro().peca(posicao);
 		return p == null || p.getCor() != getCor();
@@ -83,5 +77,10 @@ public class Rei extends PecaDeXadrez{
 		}
 		
 		return mat;
+	}
+	
+	@Override 
+	public String toString() {
+		return "R";
 	}
 }

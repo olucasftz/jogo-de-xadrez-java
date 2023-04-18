@@ -5,9 +5,9 @@ import tabuleirogeral.Tabuleiro;
 import xadrezgeral.Cor;
 import xadrezgeral.PecaDeXadrez;
 
-public class Torre extends PecaDeXadrez{
+public class Rainha extends PecaDeXadrez{
 
-	public Torre(Tabuleiro tabuleiro, Cor cor) {
+	public Rainha(Tabuleiro tabuleiro, Cor cor) {
 		super(tabuleiro, cor);
 	}
 
@@ -60,12 +60,58 @@ public class Torre extends PecaDeXadrez{
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
 		
+		
+		// DIAGONAIS
+		// Nordeste
+		
+		p.setValores(posicao.getLinha() - 1, posicao.getColuna() + 1);
+		while(getTabuleiro().posicaoExistente(p) && !getTabuleiro().temUmaPeca(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+			p.setValores(p.getLinha() - 1, p.getColuna() + 1);
+		}
+		if(getTabuleiro().posicaoExistente(p) && HaUmaPecaAdversaria(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+		}
+		
+		// Noroeste
+	
+		p.setValores(posicao.getLinha() - 1, posicao.getColuna() - 1);
+		while(getTabuleiro().posicaoExistente(p) && !getTabuleiro().temUmaPeca(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+			p.setValores(p.getLinha() - 1, p.getColuna() - 1);
+		}
+		if(getTabuleiro().posicaoExistente(p) && HaUmaPecaAdversaria(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+		}
+		
+		// Sudeste
+		
+		p.setValores(posicao.getLinha() + 1, posicao.getColuna() + 1);
+		while(getTabuleiro().posicaoExistente(p) && !getTabuleiro().temUmaPeca(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+			p.setValores(p.getLinha() + 1, p.getColuna() + 1);
+		}
+		if(getTabuleiro().posicaoExistente(p) && HaUmaPecaAdversaria(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+		}
+		
+		// Sudoeste
+		
+		p.setValores(posicao.getLinha() + 1, posicao.getColuna() - 1);
+		while(getTabuleiro().posicaoExistente(p) && !getTabuleiro().temUmaPeca(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+			p.setValores(p.getLinha() + 1, p.getColuna() - 1);
+		}
+		if(getTabuleiro().posicaoExistente(p) && HaUmaPecaAdversaria(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+		}
+		
 		return mat;
 	}
 	
 	@Override
 	public String toString() {
-		return "T";
+		return "Q";
 	}
 	
 }
