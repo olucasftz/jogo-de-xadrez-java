@@ -16,6 +16,7 @@ public class PartidaDeXadrez {
 	private Cor jogadorAtual;
 	private Tabuleiro tabuleiro;
 	private boolean xeque;
+	private boolean xequeMate;
 	
 	private List<Peca> pecasNoTabuleiro = new ArrayList<>();
 	private List<Peca> pecasCapturadas = new ArrayList<>();
@@ -27,16 +28,20 @@ public class PartidaDeXadrez {
 		iniciarConfiguracao();
 	}
 	
-	public int acessarTurno() {
+	public int getTurno() {
 		return turno;
 	}
 	
-	public Cor acessarJogadorAtual() {
+	public Cor getJogadorAtual() {
 		return jogadorAtual;
 	}
 	
-	public boolean acessarXeque() {
+	public boolean getXeque() {
 		return xeque;
+	}
+	
+	public boolean getXequeMate() {
+		return xequeMate;
 	}
 	
 	public PecaDeXadrez[][] obterPecas() {
@@ -69,7 +74,13 @@ public class PartidaDeXadrez {
 
 		xeque = (testarXeque(oponente(jogadorAtual))) ? true : false;
 		
-		proximoTurno();
+		if(testarXequeMate(oponente(jogadorAtual))) {
+			xequeMate = true;
+		}
+		else {
+			proximoTurno();
+		}
+		
 		return (PecaDeXadrez) pecaCapturada;
 	}
 	
@@ -140,6 +151,31 @@ public class PartidaDeXadrez {
 		return false;
 	}
 	
+	private boolean testarXequeMate(Cor cor) {
+		if (!testarXeque(cor)) {
+			return false;
+		}
+		List<Peca> list = pecasNoTabuleiro.stream().filter(x -> ((PecaDeXadrez)x).getCor() == cor).collect(Collectors.toList());
+		for (Peca p : list) {
+			boolean[][] mat = p.PossiveisMovimentacoes();
+			for (int i=0; i<tabuleiro.getLinhas(); i++) {
+				for (int j=0; j<tabuleiro.getColunas(); j++) {
+					if (mat[i][j]) {
+						Posicao origem = ((PecaDeXadrez)p).obterXadrezPosicao().DaPosicao();
+						Posicao destino = new Posicao(i, j);
+						Peca pecaCapturada = mover(origem, destino);
+						boolean testarXeque = testarXeque(cor);
+						desfazerMovimento(origem, destino, pecaCapturada);
+						if (!testarXeque) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}	
+	
 	private void colocarNovaPeca(char coluna, int linha, PecaDeXadrez peca) {
 		tabuleiro.posicaoDaPeca(peca, new XadrezPosicao(coluna, linha).DaPosicao());
 		pecasNoTabuleiro.add(peca);
@@ -151,18 +187,11 @@ public class PartidaDeXadrez {
 	}
 	
 	private void iniciarConfiguracao() {
-		colocarNovaPeca('c', 1, new Torre(tabuleiro, Cor.BRANCO));
-		colocarNovaPeca('c', 2, new Torre(tabuleiro, Cor.BRANCO));
-		colocarNovaPeca('d', 2, new Torre(tabuleiro, Cor.BRANCO));
-		colocarNovaPeca('e', 2, new Torre(tabuleiro, Cor.BRANCO));
-		colocarNovaPeca('e', 1, new Torre(tabuleiro, Cor.BRANCO));
-		colocarNovaPeca('d', 1, new Rei(tabuleiro, Cor.BRANCO));
+		colocarNovaPeca('h', 7, new Torre(tabuleiro, Cor.BRANCO));
+		colocarNovaPeca('d', 1, new Torre(tabuleiro, Cor.BRANCO));
+		colocarNovaPeca('e', 1, new Rei(tabuleiro, Cor.BRANCO));
 
-		colocarNovaPeca('c', 7, new Torre(tabuleiro, Cor.PRETO));
-		colocarNovaPeca('c', 8, new Torre(tabuleiro, Cor.PRETO));
-		colocarNovaPeca('d', 7, new Torre(tabuleiro, Cor.PRETO));
-		colocarNovaPeca('e', 7, new Torre(tabuleiro, Cor.PRETO));
-		colocarNovaPeca('e', 8, new Torre(tabuleiro, Cor.PRETO));
-		colocarNovaPeca('d', 8, new Rei(tabuleiro, Cor.PRETO));
+		colocarNovaPeca('b', 8, new Torre(tabuleiro, Cor.PRETO));
+		colocarNovaPeca('a', 8, new Rei(tabuleiro, Cor.PRETO));
 	}
 }
