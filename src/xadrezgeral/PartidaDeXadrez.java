@@ -130,6 +130,22 @@ public class PartidaDeXadrez {
 			tabuleiro.posicaoDaPeca(torre, destinoTorre);;
 			torre.aumentarContagemDeMovimento();
 		}
+		
+		// #Movimento especial En Passant - capturando peca branca/preta
+		if (p instanceof Peao) {
+			if (origem.getColuna() != destino.getColuna() && pecaCapturada == null) {
+				Posicao posicaoDoPeao;
+				if (p.getCor() == Cor.BRANCO) {
+					posicaoDoPeao = new Posicao(destino.getLinha() + 1, destino.getColuna());
+				}
+				else {
+					posicaoDoPeao = new Posicao(destino.getLinha() - 1, destino.getColuna());
+				}
+				pecaCapturada = tabuleiro.removerPeca(posicaoDoPeao);
+				pecasCapturadas.add(pecaCapturada);
+				pecasNoTabuleiro.remove(pecaCapturada);
+			}
+		}
 		return pecaCapturada;
 	}
 
@@ -162,6 +178,20 @@ public class PartidaDeXadrez {
 			torre.diminuirContagemDeMovimento();
 		}
 		
+		// #Movimento especial En Passant - devolvendo peca branca/preta
+		if (p instanceof Peao) {
+			if (origem.getColuna() != destino.getColuna() && pecaCapturada == enPassantVulnerabilidade) {
+				PecaDeXadrez peao = (PecaDeXadrez) tabuleiro.removerPeca(destino);
+				Posicao posicaoDoPeao;
+				if (p.getCor() == Cor.BRANCO) {
+					posicaoDoPeao = new Posicao(3, destino.getColuna());
+				}
+				else {
+					posicaoDoPeao = new Posicao(4, destino.getColuna());
+				}
+				tabuleiro.posicaoDaPeca(peao, posicaoDoPeao);
+			}
+		}		
 	}
 
 	private void validarPosicaoDeOrigem(Posicao posicao) {
