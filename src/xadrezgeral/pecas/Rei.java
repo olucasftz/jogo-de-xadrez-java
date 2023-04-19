@@ -87,7 +87,7 @@ public class Rei extends PecaDeXadrez {
 
 		// #Movimento especial: ROQUE
 		if (getContagemDeMovimento() == 0 && !partidaDeXadrez.getXeque()) {
-			// #Movimento especial lado menor do rei com a torre - 
+			// #Movimento especial lado menor do rei com a torre  
 			Posicao posTorre1 = new Posicao(posicao.getLinha(), posicao.getColuna() + 3);
 			if (testarRoqueDaTorre(posTorre1)) {
 				Posicao p1 = new Posicao(posicao.getLinha(), posicao.getColuna() + 1);
