@@ -1,4 +1,4 @@
-<h1 align= "center">Aprendendo a jogar adrez fazendo um jogo de xadrez ♟</h1> <br>
+<h1 align= "center">Jogar xadrez ou fazer um jogo de xadrez? ♟</h1> <br>
 <img src="imagens/harrypote-xadrez.jpg" alt="harry potter cena de xadrez" width="920" height="300" /> 
 
 ## Sobre
